@@ -2,6 +2,7 @@
 Agentic sampling loop that calls the Anthropic API and local implementation of anthropic-defined computer use tools.
 """
 
+import asyncio
 import platform
 from collections.abc import Callable
 from datetime import datetime
@@ -84,6 +85,7 @@ async def sampling_loop(
     api_key: str,
     only_n_most_recent_images: int | None = None,
     max_tokens: int = 4096,
+    rate_limit_seconds: float = 1.0,
 ):
     """
     Agentic sampling loop for the assistant/tool interaction of computer use.
@@ -123,6 +125,9 @@ async def sampling_loop(
                 only_n_most_recent_images,
                 min_removal_threshold=image_truncation_threshold,
             )
+
+        # Implement rate limiting using asyncio.sleep
+        await asyncio.sleep(rate_limit_seconds)
 
         # Call the API
         # we use raw_response to provide debug information to streamlit. Your

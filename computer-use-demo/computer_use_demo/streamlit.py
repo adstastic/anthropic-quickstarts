@@ -227,6 +227,7 @@ async def main():
                 ),
                 api_key=st.session_state.api_key,
                 only_n_most_recent_images=st.session_state.only_n_most_recent_images,
+                rate_limit_seconds=60 / 5,  # free tier rate limit is 5 RPM
             )
 
 
